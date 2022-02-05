@@ -42,7 +42,7 @@ The **QGraphicsScene class** provides a surface for managing a large number of 2
 
 The **QGraphicsSceneMouseEvent class** provides mouse events in the graphics view framework. When a QGraphicsView receives a QMouseEvent, it translates it to a QGraphicsSceneMouseEvent. The event is then forwarded to the QGraphicsScene associated with the view. If the event is not handled by the scene, the view may use it, e.g., for the DragMode. In addition to containing the item, scene, and screen coordinates of the event (as pos(), scenePos(), and screenPos()), mouse events also contain the coordinates of the previous mouse event received by the view. These can be retrieved with lastPos(), lastScreenPos(), and lastScenePos().
 
-![Image](/Qgraphicscenemouseevent.png)
+![Image](/Qgraphicsscenemouseevent.png)
 
 The **QGraphicsItem class** is the base class for all graphical items in a QGraphicsScene. It provides a light-weight foundation for writing your own custom items. This includes defining the item's geometry, collision detection, its painting implementation and item interaction through its event handlers. QGraphicsItem is part of the Graphics View Framework.
 
