@@ -4,12 +4,11 @@ create a MainWindow based application using the designer
 - [Credit](#credit)
 - [Introduction](#INTRO)
 - [OverView](#overview)
-- [Button](#button)
-- [Food](#food)
 - [game](#game)
+- [Food](#food)
 - [MoveSnake](#movesnake)
-- [Score](#score)
 - [SnakePart](#snakepart)
+- [Score](#score)
 - [Conclusion](#conclusion)
 
 <div id = "back"></div>
