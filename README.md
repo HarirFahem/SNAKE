@@ -110,7 +110,7 @@ Mainwindow::Mainwindow(QWidget *parent):QGraphicsView(parent)
  }
  ```
  Then we display our Menu which contains three Push Button , each one have its connections:
- ```
+ ```Cpp
 void Game::displayMainMenu(QString title,QString play)
 {
   //Create the title
@@ -135,8 +135,87 @@ connect(Quit,SIGNAL(clicked()) , this , SLOT(close()));
 connect(About,SIGNAL(clicked()) , this , SLOT(Aboutslot()));
 
 }
+```
+The first button Start move us to the game, the second is for more informations about our game, and the last one is to close the Game.
+Secondly, we created two classes called SnakeMove and SnakePart which are responsible for the Snake and its funcionality. 
+As we mentioned in the Overview, the Snake move in the four directions and we control them from the keyPress Event 
+```Cpp
+void SnakeMove::keyPressEvent(QKeyEvent *event)
+{
+
+    if(( event->key() == Qt::Key_Down || event->key()== Qt::Key_X) && sHead->getDirection() != "UP") {
+        direction = "DOWN";
+    }
+    else if(( event->key() == Qt::Key_Up || event->key()== Qt::Key_Z) &&sHead->getDirection() != "DOWN") {
+        direction = "UP";
+    }
+    else if((event->key() == Qt::Key_Right || event->key()== Qt::Key_D) && sHead->getDirection() != "LEFT") {
+        direction = "RIGHT";
+    }
+    else if((event->key() == Qt::Key_Left || event->key()== Qt::Key_Q) && sHead->getDirection() != "RIGHT") {
+
+        direction = "LEFT";
+    }
+```
+
+Then we connect these directions with the mouvement of the Snake in the class PartSnake :
+```Cpp
+void SnakePart::move() {
+    static int first;
+
+    if (direction == "DOWN"  )
+        this->setY(this->y()+40);
+    else if(direction == "UP")
+        this->setY(this->y()-40);
+    else if(direction == "LEFT")
+        this->setX(this->x()-40);
+    else if(direction == "RIGHT")
+        this->setX(this->x()+40);
+    if(this->getForward()!= NULL)
+        direction = this->getForward()->direction;
+    if(first){
+    if(this->y() >= 880 ){
+        this->setY(0);
+    }
+    else if(this->y()<0){
+        this->setY(880);
+    }
+    else if(this->x() < 0){
+        this->setX(1400);
+    }
+    else if(this->x() >= 1400){
+        this->setX(0);
+    }
+
+    }
+    first++;
+
+}
+
+void SnakePart::addBehind() {
+    int x;
+    int y;
+
+    if(this->getForward()->getDirection() == "UP"){
+        x = this->getForward()->x();
+        y = this->getForward()->y() + 40;
+    }
+    else if(this->getForward()->getDirection() == "DOWN"){
+        x = this->getForward()->x();
+        y = this->getForward()->y() - 40;
+    }
+    else if(this->getForward()->getDirection() == "RIGHT"){
+        y = this->getForward()->y();
+        x = this->getForward()->x() - 40;
+    }
+    else if(this->getForward()->getDirection() == "LEFT"){
+        y = this->getForward()->y();
+        x = this->getForward()->x() + 40;
+    }
+    setPos(x,y);
 
 
+}
 
 ```
 >
