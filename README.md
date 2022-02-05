@@ -69,7 +69,9 @@ This project is a very important experience for us EIDIA students to become fami
  	During this period, the project that we are going to carry out is an game named **Snake Game**
 	To clarify things for you, and to bring you closer to the options offered by our project, we have written this report which contains all the details and explanations associated with our project.
   To achieve Snake Game, we used Qt-Creator which is a cross-platform integrated development environment (IDE) built for the maximum developer experience. Qt Creator runs on Windows, Linux, and macOS desktop operating systems, and allows developers to create applications across desktop, mobile, and embedded platforms.
+  
   In carrying out this project, we had several objectives, thanks to which we were able to frame our work, and do our research in a well-organized way.
+  
 The objectives that have been set to carry out this work are the following:
 >
 
@@ -84,7 +86,9 @@ The objectives that have been set to carry out this work are the following:
 
 This project turned out to be very rewarding insofar as it consisted of a concrete approach to the engineering profession. Indeed, taking the initiative and respecting deadlines will be essential aspects of our future profession.
 In addition, it allowed us to apply our knowledge to a practical area.
+
 As well as during our work, we had a problem with our computer, it hangs completely and if we don't restart it by pushing the power button, it won't work. Despite all its difficulties, it helps us to know consistent values across the entire field studied, which we will probably be led to do in our future profession.
+
 •	To summarize, this project is a very important experience for us to be familiar with this material and to develop our skills
 Thank you Sir
 
