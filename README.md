@@ -4,11 +4,7 @@ create a MainWindow based application using the designer
 - [Credit](#credit)
 - [Introduction](#INTRO)
 - [OverView](#overview)
-- [game](#game)
-- [Food](#food)
-- [MoveSnake](#movesnake)
-- [SnakePart](#snakepart)
-- [Score](#score)
+- [Steps](#Steps)
 - [Conclusion](#conclusion)
 
 <div id = "back"></div>
@@ -39,10 +35,6 @@ The **QGraphicsView class** provides a widget for displaying the contents of a Q
 
 The **QGraphicsScene class** provides a surface for managing a large number of 2D graphical items. The class serves as a container for QGraphicsItems. It is used together with QGraphicsView for visualizing graphical items, such as lines, rectangles, text, or even custom items, on a 2D surface. QGraphicsScene is part of the Graphics View Framework. It also provides functionality that lets you efficiently determine both the location of items, and for determining what items are visible within an arbitrary area on the scene. With the QGraphicsView widget, you can either visualize the whole scene, or zoom in and view only parts of the scene. 
 
-The **QGraphicsSceneMouseEvent class** provides mouse events in the graphics view framework. When a QGraphicsView receives a QMouseEvent, it translates it to a QGraphicsSceneMouseEvent. The event is then forwarded to the QGraphicsScene associated with the view. If the event is not handled by the scene, the view may use it, e.g., for the DragMode. In addition to containing the item, scene, and screen coordinates of the event (as pos(), scenePos(), and screenPos()), mouse events also contain the coordinates of the previous mouse event received by the view. These can be retrieved with lastPos(), lastScreenPos(), and lastScenePos().
-
-![Image](/Qgraphicsscenemouseevent.png)
-
 The **QGraphicsItem class** is the base class for all graphical items in a QGraphicsScene. It provides a light-weight foundation for writing your own custom items. This includes defining the item's geometry, collision detection, its painting implementation and item interaction through its event handlers. QGraphicsItem is part of the Graphics View Framework.
 
 ![Image](/Qgraphicsitem.png)
@@ -55,7 +47,6 @@ The **QMediaPlaylist class** provides a list of media content to play. It is int
 
 ![Image](/Qmediaplaylist.png)
 
-The **QDebug class** provides an output stream for debugging information. It is used whenever the developer needs to write out debugging or tracing information to a device, file, string or console.
 
  >**In This Zip we have the SnakeGameProject** [FinalProject.zip]() 
  
@@ -68,13 +59,89 @@ This project is a very important experience for us EIDIA students to become fami
  	During this period, the project that we are going to carry out is an game named **Snake Game**
 	To clarify things for you, and to bring you closer to the options offered by our project, we have written this report which contains all the details and explanations associated with our project.
   To achieve Snake Game, we used Qt-Creator which is a cross-platform integrated development environment (IDE) built for the maximum developer experience. Qt Creator runs on Windows, Linux, and macOS desktop operating systems, and allows developers to create applications across desktop, mobile, and embedded platforms.
+  **Snake Game** is a video game that originated during the late 1970s in arcades becoming something of a classic. It became the standard pre-loaded game on Nokia phones in 1998.The player controls a long, thin creature, resembling a snake, which roams around on a bordered plane, picking up food (or some other item), trying to avoid hitting its own tail or the edges of the playing area. Each time the snake eats a piece of food, its tail grows longer, making the game increasingly difficult. The user controls the direction of the snake's head (**up, down, left, or right**), and the snake's body follows.
+  Here is a overview of how it is designed:
   
-  In carrying out this project, we had several objectives, thanks to which we were able to frame our work, and do our research in a well-organized way.
+  ![Image](/backgroundsnake.png)
   
-The objectives that have been set to carry out this work are the following:
+ <a name="Steps"></a> 
+  In carrying out this project, we had several Steps, thanks to which we were able to frame our work, and do our research in a well-organized way.
+  
+ ### **OverView** 
+The steps that have been set to carry out this work are the following:
+We create our window , it will be a GraphicsScene with its own properties , and we generate the first class which we called MainWindow:
+Firstly ,We create our first window (MainWindow.h) :
+```Cpp
+class Mainwindow:public QGraphicsView
+{
+public:
+    Mainwindow(QWidget * parent =0);
+    void keyPressEvent(QKeyEvent *event);
+    void Menu(QString title, QString Play);
+    void gameOver();
+
+    QGraphicsScene *Window;
+    QGraphicsTextItem *Titre;
+
+public slots:
+    void start();
+     void AboutSlot();
+private:
+    QPushButton * newgame;
+    QPushButton * About;
+    QPushButton * Quit ;
+
+};
+
+```
+we implement this methods in the MainWindow.cpp:
+We add a image for our background:
+```Cpp
+Mainwindow::Mainwindow(QWidget *parent):QGraphicsView(parent)
+{
+ 
+   setFixedSize(1400,850);
+    Window = new QGraphicsScene(this);
+    Window->setSceneRect(0,0,1400,850);
+    QGraphicsPixmapItem *bg = new QGraphicsPixmapItem();
+    bg->setPixmap(QPixmap(":/aSnake.png").scaled(1400,880));
+      Window->addItem(bg);
+      setScene(Window);
+ }
+ ```
+ Then we display our Menu which contains three Push Button , each one have its connections:
+ ```
+void Game::displayMainMenu(QString title,QString play)
+{
+  //Create the title
+    titleText = new QGraphicsTextItem(title);
+    QFont titleFont("arial" , 50);
+    titleText->setFont( titleFont);
+    titleText->setPos(width()/2 - titleText->boundingRect().width()/2,200);
+    gameScene->addItem(titleText);
+    newgame = new QPushButton(play);
+    newgame->setGeometry(QRect(QPoint(width()/2- titleText->boundingRect().width()/4, 400), QSize(250, 70)));
+      gameScene->addWidget(newgame);
+
+    About = new QPushButton("About");
+     About->setGeometry(QRect(QPoint(width()/2- titleText->boundingRect().width()/4, 500), QSize(250, 70)));
+   gameScene->addWidget(About);
+   Quit = new QPushButton("Quit");
+     Quit->setGeometry(QRect(QPoint(width()/2- titleText->boundingRect().width()/4, 600), QSize(250, 70)));
+     gameScene->addWidget(Quit);
+// connections
+connect(newgame,SIGNAL(clicked()) , this , SLOT(start()));
+connect(Quit,SIGNAL(clicked()) , this , SLOT(close()));
+connect(About,SIGNAL(clicked()) , this , SLOT(Aboutslot()));
+
+}
+
+
+
+```
 >
 
-<div id = "back"></div>
+
 
 [(**Back to top**)](#back)
 
