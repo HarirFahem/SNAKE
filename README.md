@@ -36,17 +36,25 @@ Finally, we would like to warmly thank our training director as well as the enti
 
 The **QGraphicsView class** provides a widget for displaying the contents of a QGraphicsScene. QGraphicsView visualizes the contents of a QGraphicsScene in a scrollable viewport. To create a scene with geometrical items, see QGraphicsScene's documentation. QGraphicsView is part of the Graphics View Framework.
 
-The **QGraphicsScene class** provides a surface for managing a large number of 2D graphical items. The class serves as a container for QGraphicsItems. It is used together with QGraphicsView for visualizing graphical items, such as lines, rectangles, text, or even custom items, on a 2D surface. QGraphicsScene is part of the Graphics View Framework. It also provides functionality that lets you efficiently determine both the location of items, and for determining what items are visible within an arbitrary area on the scene. With the QGraphicsView widget, you can either visualize the whole scene, or zoom in and view only parts of the scene. 
+![Image](/Qgraphicview.png)
 
-The QGraphicsView class provides a widget for displaying the contents of a QGraphicsScene. It visualizes the contents of a QGraphicsScene in a scrollable viewport. To create a scene with geometrical items, see QGraphicsScene's documentation. QGraphicsView is part of the Graphics View Framework.
+The **QGraphicsScene class** provides a surface for managing a large number of 2D graphical items. The class serves as a container for QGraphicsItems. It is used together with QGraphicsView for visualizing graphical items, such as lines, rectangles, text, or even custom items, on a 2D surface. QGraphicsScene is part of the Graphics View Framework. It also provides functionality that lets you efficiently determine both the location of items, and for determining what items are visible within an arbitrary area on the scene. With the QGraphicsView widget, you can either visualize the whole scene, or zoom in and view only parts of the scene. 
 
 The **QGraphicsSceneMouseEvent class** provides mouse events in the graphics view framework. When a QGraphicsView receives a QMouseEvent, it translates it to a QGraphicsSceneMouseEvent. The event is then forwarded to the QGraphicsScene associated with the view. If the event is not handled by the scene, the view may use it, e.g., for the DragMode. In addition to containing the item, scene, and screen coordinates of the event (as pos(), scenePos(), and screenPos()), mouse events also contain the coordinates of the previous mouse event received by the view. These can be retrieved with lastPos(), lastScreenPos(), and lastScenePos().
 
+![Image](/Qgraphicscenemouseevent.png)
+
 The **QGraphicsItem class** is the base class for all graphical items in a QGraphicsScene. It provides a light-weight foundation for writing your own custom items. This includes defining the item's geometry, collision detection, its painting implementation and item interaction through its event handlers. QGraphicsItem is part of the Graphics View Framework.
+
+![Image](/Qgraphicsitem.png)
 
 The **QMediaPlayer class** allows the playing of a media source. It is a high level media playback class. It can be used to playback such content as songs, movies and internet radio. The content to playback is specified as a QMediaContent object, which can be thought of as a main or canonical URL with additional information attached. When provided with a QMediaContent playback may be able to commence.
 
+![Image](/Qmediaplayer.png)
+
 The **QMediaPlaylist class** provides a list of media content to play. It is intended to be used with other media objects, like QMediaPlayer. It allows to access the service intrinsic playlist functionality if available, otherwise it provides the local memory playlist implementation.
+
+![Image](/Qmediaplaylist.png)
 
 The **QDebug class** provides an output stream for debugging information. It is used whenever the developer needs to write out debugging or tracing information to a device, file, string or console.
 
@@ -63,7 +71,7 @@ This project is a very important experience for us EIDIA students to become fami
   To achieve Snake Game, we used Qt-Creator which is a cross-platform integrated development environment (IDE) built for the maximum developer experience. Qt Creator runs on Windows, Linux, and macOS desktop operating systems, and allows developers to create applications across desktop, mobile, and embedded platforms.
   In carrying out this project, we had several objectives, thanks to which we were able to frame our work, and do our research in a well-organized way.
 The objectives that have been set to carry out this work are the following:
-
+>
 
 <div id = "back"></div>
 
