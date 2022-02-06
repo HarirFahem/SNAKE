@@ -72,7 +72,7 @@ This project is a very important experience for us EIDIA students to become fami
 The steps that have been set to carry out this work are the following:
 We create our window , it will be a GraphicsScene with its own properties , and we generate the first class which we called MainWindow:
 Firstly ,We create our first window (game.h) :
-```Cpp
+```javascript
 class Game:public QGraphicsView
 {
 public:
