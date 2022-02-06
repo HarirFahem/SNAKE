@@ -241,7 +241,7 @@ void SnakePart::addBehind() {
 }
 
 ```
-![Image](/edges.png)
+![Image](/Edges.png)
 
 When we clicked *Start* First, a snake starts at the (200,200) of the Window moving Right, we press space if we want to play 
 
@@ -420,6 +420,9 @@ Bomb::Bomb(QGraphicsItem *parent):QGraphicsPixmapItem(parent){
 
 }
 ```
+![Image](/Fruits.png)
+
+Fruits illustration
 
 [(**Back to top**)](#back)
 
@@ -543,6 +546,14 @@ void SnakePart::checkColliding() {
 }
 ```
 
+![Image](/eatbomb.png)
+
+Eating a Bomb
+
+![Image](/eatSelf.png)
+
+Eating its Self 
+
 [(**Back to top**)](#back)
 
 The final score is based on the number of Food eaten by the snake,and we save the high Score for giving the challenge:
@@ -620,6 +631,10 @@ void HighScore::setScore(int value)
     setPlainText("High Score: " + QString::number(highscore));
 }
 ```
+
+![Image](/HighScore.png)
+
+HighScore acheived 
 
 We add finally the music to our game by the QMediaPlaylist, we have 3 sounds: one for playing,second for eating and the third and the last one for losing :
 
