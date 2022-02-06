@@ -64,24 +64,25 @@ This project is a very important experience for us EIDIA students to become fami
   
   ![Image](/backgroundsnake.png)
   
+   ### **Steps** 
+  
  <a name="Steps"></a> 
   In carrying out this project, we had several Steps, thanks to which we were able to frame our work, and do our research in a well-organized way.
   
- ### **OverView** 
 The steps that have been set to carry out this work are the following:
 We create our window , it will be a GraphicsScene with its own properties , and we generate the first class which we called MainWindow:
-Firstly ,We create our first window (MainWindow.h) :
+Firstly ,We create our first window (game.h) :
 ```Cpp
-class Mainwindow:public QGraphicsView
+class Game:public QGraphicsView
 {
 public:
-    Mainwindow(QWidget * parent =0);
+    Game(QWidget * parent =0);
     void keyPressEvent(QKeyEvent *event);
     void Menu(QString title, QString Play);
     void gameOver();
 
-    QGraphicsScene *Window;
-    QGraphicsTextItem *Titre;
+    QGraphicsScene *gameScene;
+    QGraphicsTextItem *titleText;
 
 public slots:
     void start();
@@ -94,24 +95,24 @@ private:
 };
 
 ```
-we implement this methods in the MainWindow.cpp:
+we implement this methods in the game.cpp:
 We add a image for our background:
 ```Cpp
-Mainwindow::Mainwindow(QWidget *parent):QGraphicsView(parent)
+Game::Game(QWidget *parent):QGraphicsView(parent)
 {
  
    setFixedSize(1400,850);
-    Window = new QGraphicsScene(this);
-    Window->setSceneRect(0,0,1400,850);
+    gameScene = new QGraphicsScene(this);
+    gameScene->setSceneRect(0,0,1400,850);
     QGraphicsPixmapItem *bg = new QGraphicsPixmapItem();
     bg->setPixmap(QPixmap(":/aSnake.png").scaled(1400,880));
-      Window->addItem(bg);
-      setScene(Window);
+      gameScene->addItem(bg);
+      setScene(gameScene);
  }
  ```
  Then we display our Menu which contains three Push Button , each one have its connections:
  ```Cpp
-void Game::displayMainMenu(QString title,QString play)
+void Game::Menu(QString title,QString play)
 {
   //Create the title
     titleText = new QGraphicsTextItem(title);
@@ -132,14 +133,19 @@ void Game::displayMainMenu(QString title,QString play)
 // connections
 connect(newgame,SIGNAL(clicked()) , this , SLOT(start()));
 connect(Quit,SIGNAL(clicked()) , this , SLOT(close()));
-connect(About,SIGNAL(clicked()) , this , SLOT(Aboutslot()));
+connect(About,SIGNAL(clicked()) , this , SLOT(AboutSlot()));
 
 }
 ```
-The first button Start move us to the game, the second is for more informations about our game, and the last one is to close the Game.
-Secondly, we created two classes called SnakeMove and SnakePart which are responsible for the Snake and its funcionality. 
+[(**Back to top**)](#back)
+
+- The first button *Start* move us to the game.
+
+
+  We created two classes called MoveSnake and SnakePart which are responsible for the Snake and its funcionality. 
 As we mentioned in the Overview, the Snake move in the four directions and we control them from the keyPress Event 
-```Cpp
+  
+  ```Cpp
 void SnakeMove::keyPressEvent(QKeyEvent *event)
 {
 
@@ -158,7 +164,7 @@ void SnakeMove::keyPressEvent(QKeyEvent *event)
     }
 ```
 
-Then we connect these directions with the mouvement of the Snake in the class PartSnake :
+Then we connect these directions with the mouvement of the Snake , also we let our snake cross the edge of the board :
 ```Cpp
 void SnakePart::move() {
     static int first;
@@ -218,9 +224,397 @@ void SnakePart::addBehind() {
 }
 
 ```
->
+When we clicked *Start* First, a snake starts at the (200,200) of the Window moving Right, we press space if we want to play 
+```Cpp
+
+    snakeHead = new SnakePart(this);
+    snakeHead->setForward(NULL);
+    snakeHead->setBackward(NULL);
+    snakeHead->setPos(200,200);
+    snakeHead->setDirection("RIGHT");
+    snakeHead->part = "HEAD";
+    snakeHead->setImage();
+    snakeTail = snakeHead;
+
+    direction = "RIGHT";
+
+    addPart();
+    addPart();
+    addPart();
+
+    text = new QGraphicsTextItem(this);
+    text->setVisible(true);
+    text->setPlainText("Press Space to continue");
+    text->setDefaultTextColor(Qt::lightGray);
+    text->setPos(650,250);
+    text->setFont(QFont("",14));
+```
+
+[(**Back to top**)](#back)
+  We used a function called *setImage* to draw our snake by parts
+  ```Cpp
+  
+  void SnakePart::setImage() {
+    if(part == "HEAD"){
+
+        if(direction == "UP"){
+     setPixmap(QPixmap(":/headup.png").scaled(40,40));
+        }else if(direction == "DOWN"){
+           setPixmap(QPixmap(":/headDown.png").scaled(40,40));
+        }else if(direction == "LEFT"){
+            setPixmap(QPixmap(":/headLeft.png").scaled(40,40));
+        }else if(direction == "RIGHT"){
+            setPixmap(QPixmap(":/head.png").scaled(40,40,Qt::KeepAspectRatio));
+        }
+
+}
+    else if(part == "TAIL") {
+        if(direction == "UP"){
+          setPixmap(QPixmap(":/atailUp.png").scaled(40,40));
+        }else if(direction == "DOWN"){
+           setPixmap(QPixmap(":/atailDown.png").scaled(40,40));
+        }else if(direction == "LEFT"){
+            setPixmap(QPixmap(":atail.png").scaled(40,40));
+        }else if(direction == "RIGHT"){
+
+            setPixmap(QPixmap(":/atailLeft.png").scaled(40,40));
+        }
+    }
+    else if (part == "PART"){
+        if(direction == this->backward->getDirection()){
+        if(direction == "LEFT" ||direction ==  "RIGHT")
+            setPixmap(QPixmap(":/left-right.png").scaled(40,40));
+        else if (direction == "UP" || direction == "DOWN")
+            setPixmap(QPixmap(":/aup-down.png").scaled(40,40));
+}
+        else{
+            if((direction == "UP" && this->backward->getDirection() == "LEFT")
+                    || (direction == "RIGHT" && this->backward->getDirection() == "DOWN"))
+                setPixmap(QPixmap(":/leftUp-downRight.png").scaled(40,40));
+            else if((direction == "UP" && this->backward->getDirection() == "RIGHT")
+                    || (direction == "LEFT" && this->backward->getDirection() == "DOWN"))
+                setPixmap(QPixmap(":/rightUp-downLeft.png").scaled(40,40));
+            else if((direction == "LEFT" && this->backward->getDirection() == "UP")
+                    || (direction == "DOWN" && this->backward->getDirection() == "RIGHT"))
+                setPixmap(QPixmap(":/aupLeft-rightDown.png").scaled(40,40));
+            else
+                setPixmap(QPixmap(":/aupRight-leftDown.png").scaled(40,40));
+ }  }
+}
+
+  ```
+For the mouvement of our snake in our pressKey 
+```Cpp
+
+void MoveSnake::move() {
+    snakeHead->setDirection(direction);
+    moveSnake();
+
+}
+void MoveSnake::addPart(){
+    SnakePart *part = new SnakePart(this);
+    SnakePart *temp = snakeHead;
+    while(temp->getBackward() != NULL) {
+        temp = temp->getBackward();
+    }
+    temp->setBackward( part);
+    part->setForward( temp);
+    part->setBackward(NULL);
+    part->addBehind();
+    part->setDirection(temp->getDirection());
+    snakeTail = part;
+    part->part = "TAIL";
+    if(temp != snakeHead)
+    temp->part = "PART";
+    part->setImage();
+    temp->setImage();
+}
+
+void MoveSnake::moveSnake()
+{
+
+   SnakePart *temp = snakeTail;
+
+   while(temp!=NULL) {
+
+       temp->move();
+       temp = temp->getForward();
+   }
+}
+
+```
+
+We move to the food, We creat a class called Food for generate our food and also the Bomb 
+(Food.h)
+```Cpp
+class food:public QGraphicsPixmapItem
+{
+public:
+    food(QGraphicsItem *parent = 0,QString name = "");
+    int score;
+};
+class Bomb:public QGraphicsPixmapItem
+{
+public:
+    Bomb(QGraphicsItem *parent = 0);
+    int score;
+};
 
 
+```
+When the snake "eats" a strawberry or kiwi, it score increase, But if it's an egg it decrease by 5.
+*(Food.cpp)*
+```Cpp
+
+food::food(QGraphicsItem *parent,QString name):QGraphicsPixmapItem(parent)
+{
+    if(name == "strawberry"){
+        setPixmap(QPixmap(":/Fruit.png").scaled(60,60));
+        score = 2;
+    }else if(name == "Egg"){
+        setPixmap(QPixmap(":/egg.png").scaled(60,60));
+        score = -5;
+    }
+    else{
+        setPixmap(QPixmap(":/Fruit1.png").scaled(60,60,Qt::KeepAspectRatio));
+        score = 5;
+    }
+}
+Bomb::Bomb(QGraphicsItem *parent):QGraphicsPixmapItem(parent){
+
+
+        setPixmap(QPixmap(":/Bomb.png").scaled(60,60));
+
+}
+```
+
+[(**Back to top**)](#back)
+Our food: "Strawberry , Kiwi, and Egg" appears at random locations, also our Bomb
+
+```Cpp
+MoveSnake::MoveSnake(QGraphicsItem *parent):QGraphicsRectItem(parent)
+{
+t = new QTimer();
+   connect(t,SIGNAL(timeout()),this,SLOT(move()));
+
+    foodTimer = new QTimer();
+    connect(foodTimer,SIGNAL(timeout()),this,SLOT(makeFood()));
+
+    food1Timer = new QTimer();
+    connect(food1Timer,SIGNAL(timeout()),this,SLOT(makeFood1()));
+
+
+    food2Timer = new QTimer();
+    connect(food2Timer,SIGNAL(timeout()),this,SLOT(makeFood2()));
+    
+    BombTimer = new QTimer();
+     connect(BombTimer,SIGNAL(timeout()),this,SLOT(makeBomb()));
+    }
+void MoveSnake::makeFood()
+{
+    food * f1 = new food(this,"strawberry");
+    f1->setX(qrand() % (1400/40)* 40);
+    f1->setY(qrand() % (880/40) * 40) ;
+
+}
+void MoveSnake::makeFood1()
+{
+    food * f1 = new food(this);
+    f1->setX(qrand() % (1400/40)* 40);
+    f1->setY(qrand() % (880/40) * 40) ;
+
+}
+void MoveSnake::makeFood2()
+{
+    food * f1 = new food(this,"Egg");
+    f1->setX(qrand() % (1400/40)* 40);
+    f1->setY(qrand() % (880/40) * 40) ;
+}
+void MoveSnake::makeBomb(){
+    Bomb * f1 = new Bomb(this);
+    f1->setX(qrand() % (1400/40)* 40);
+    f1->setY(qrand() % (880/40) * 40) ;
+}
+```
+
+When we press Space, the snake move and the food appear with a certain timing:
+```Cpp
+void MoveSnake::keyPressEvent(QKeyEvent *event)
+{
+if(event->key() == Qt::Key_Space){
+        if(t->isActive()){
+            foodTimer->stop();
+            food1Timer->stop();
+            food2Timer->stop();
+            BombTimer->stop();
+
+        t->stop();
+        text->setVisible(true);
+
+        }
+        else{
+
+            foodTimer->start(2000);
+            food1Timer->start(6000);
+            food2Timer->start(10000);
+            BombTimer->start(80000);
+            t->start(60);
+
+            text->setVisible(false);
+        }
+
+    }
+}
+
+```
+When the snake "eats" a Food, it gets longer, we check the collidingItems in our class SnakePart:
+ The game continues until the snake "dies".A snake dies by either eating a bombe, or by running into its own tail.
+```Cpp
+void SnakePart::checkColliding() {
+    QList <QGraphicsItem *> coll = this->collidingItems();
+
+   for(int i = 0,n = coll.length(); i < n; i++) {
+        food *f = dynamic_cast<food *>(coll[i]);
+         Bomb *b = dynamic_cast<Bomb *>(coll[i]);
+        if(f) {
+            QPointF thisCenter(x()+10,y()+10);
+            QPointF foodCenter(f->x()+10,f->y()+10);
+            QLineF ln(thisCenter,foodCenter);
+            if(ln.length() == 0){
+           
+                game->snake->addPart();
+                game->snake->addPart();
+           game->gameScene->removeItem(f);
+           game->score->setScore(game->score->getScore()+f->score);
+           delete f;
+	   }
+	   }else if(b) {
+            QPointF thisCenter(x()+10,y()+10);
+            QPointF BombCenter(b->x()+10,b->y()+10);
+            QLineF ln(thisCenter,BombCenter);
+            if(ln.length() == 0){
+                   game->gameOver();
+        }}
+        else if(coll[i]) {
+            if(typeid(*coll[i])== typeid(SnakePart))
+            game->gameOver();
+            return;
+        }
+}
+```
+[(**Back to top**)](#back)
+The final score is based on the number of Food eaten by the snake,and we save the high Score for giving the challenge:
+(Score.h)
+```Cpp
+
+class Score:public QGraphicsTextItem
+{
+public:
+    Score(QGraphicsItem *parent = 0);
+    int getScore() ;
+    void setScore(int value);
+
+private:
+    int score;
+
+};
+
+class HighScore:public QGraphicsTextItem
+{
+public:
+    HighScore(QGraphicsItem *parent = 0);
+    int getScore();
+    void setScore(int value);
+
+private:
+    int highscore;
+};
+```
+*(Score.cpp)
+```Cpp
+Score::Score(QGraphicsItem *parent):QGraphicsTextItem(parent)
+{
+    score = 0;
+
+    setPos(5,10);
+    setFont( QFont("",30));
+    setDefaultTextColor(Qt::lightGray);
+}
+
+int Score::getScore()
+{
+    return score;
+}
+
+void Score::setScore(int value)
+{
+    score = value;
+    setPlainText("Score: " + QString::number(score));
+
+}
+
+HighScore::HighScore(QGraphicsItem *parent):QGraphicsTextItem(parent)
+{
+    highscore = 0;
+    setPos(5,50);
+    setFont( QFont("",30));
+    setDefaultTextColor(Qt::lightGray);
+}
+int HighScore::getScore()
+{
+    return highscore;
+}
+
+void HighScore::setScore(int value)
+{
+    highscore = value;
+    setPlainText("High Score: " + QString::number(highscore));
+}
+```
+We add finally the music to our game by the QMediaPlaylist, we have 3 sounds: one for playing,second for eating and the third for losing :
+```Cpp
+
+m_player = new QMediaPlayer();
+    m_playlist = new QMediaPlaylist(m_player);
+
+   m_player->setPlaylist(m_playlist);
+   m_playlist->addMedia(QUrl("qrc:/eat.wav"));
+   m_playlist->setPlaybackMode(QMediaPlaylist::CurrentItemOnce);
+```
+
+We play or stop our sound compared to the situation:
+```Cpp
+     m_player->stop();
+Or
+    m_player->play();
+```
+
+-  The second is for more informations about our game.
+  
+  If we pressed this button, they will show the window bellow:
+  
+  ![Image](/about.png)
+  
+  If We choose to know info about the game , we will see thiw window:
+  
+ ![Image](/Aboutsnake.png)
+  
+-  The last one is to close the Game.
+ 
+ we add the closeEvent for saving highScores in a txt file:
+```Cpp
+void Game::closeEvent(QCloseEvent *e){
+    QFile file("/Users/hp/Desktop/sav.txt");
+    if (file.open(QIODevice::ReadWrite| QIODevice::Text)){
+
+        QTextStream out(&file);
+        if(score->getScore() > highscore->getScore()) {
+            out<<score->getScore()<<Qt::endl;
+            file.close();
+        }
+    }
+}
+```
 
 [(**Back to top**)](#back)
 
