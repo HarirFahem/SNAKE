@@ -97,7 +97,7 @@ private:
 ```
 we implement this methods in the game.cpp:
 We add a image for our background:
-```Cpp
+```javascript
 Game::Game(QWidget *parent):QGraphicsView(parent)
 {
  
@@ -111,7 +111,7 @@ Game::Game(QWidget *parent):QGraphicsView(parent)
  }
  ```
  Then we display our Menu which contains three Push Button , each one have its connections:
- ```Cpp
+ ```javascript
 void Game::Menu(QString title,QString play)
 {
   //Create the title
@@ -145,7 +145,7 @@ connect(About,SIGNAL(clicked()) , this , SLOT(AboutSlot()));
   We created two classes called MoveSnake and SnakePart which are responsible for the Snake and its funcionality. 
 As we mentioned in the Overview, the Snake move in the four directions and we control them from the keyPress Event 
   
-  ```Cpp
+  ```javascript
 void SnakeMove::keyPressEvent(QKeyEvent *event)
 {
 
@@ -166,7 +166,7 @@ void SnakeMove::keyPressEvent(QKeyEvent *event)
 
 Then we connect these directions with the mouvement of the Snake , also we let our snake cross the edge of the board :
 
-```Cpp
+```javascript
 void SnakePart::move() {
     static int first;
 
@@ -223,7 +223,7 @@ void SnakePart::addBehind() {
 ```
 When we clicked *Start* First, a snake starts at the (200,200) of the Window moving Right, we press space if we want to play 
 
-```Cpp
+```javascript
 
     snakeHead = new SnakePart(this);
     snakeHead->setForward(NULL);
@@ -251,7 +251,7 @@ When we clicked *Start* First, a snake starts at the (200,200) of the Window mov
 [(**Back to top**)](#back)
   We used a function called *setImage* to draw our snake by parts
   
-  ```Cpp
+  ```javascript
   
   void SnakePart::setImage() {
     if(part == "HEAD"){
@@ -304,7 +304,7 @@ When we clicked *Start* First, a snake starts at the (200,200) of the Window mov
   ```
 For the mouvement of our snake in our pressKey 
 
-```Cpp
+```javascript
 
 void MoveSnake::move() {
     snakeHead->setDirection(direction);
@@ -347,7 +347,7 @@ void MoveSnake::moveSnake()
 We move to the food, We creat a class called Food for generate our food and also the Bomb 
 (Food.h)
 
-```Cpp
+```javascript
 class food:public QGraphicsPixmapItem
 {
 public:
@@ -365,7 +365,7 @@ public:
 ```
 When the snake "eats" a strawberry or kiwi, it score increase, But if it's an egg it decrease by 5.
 *(Food.cpp)*
-```Cpp
+```javascript
 
 food::food(QGraphicsItem *parent,QString name):QGraphicsPixmapItem(parent)
 {
@@ -392,7 +392,7 @@ Bomb::Bomb(QGraphicsItem *parent):QGraphicsPixmapItem(parent){
 [(**Back to top**)](#back)
 Our food: "Strawberry , Kiwi, and Egg" appears at random locations, also our Bomb
 
-```Cpp
+```javascript
 MoveSnake::MoveSnake(QGraphicsItem *parent):QGraphicsRectItem(parent)
 {
 t = new QTimer();
@@ -440,7 +440,7 @@ void MoveSnake::makeBomb(){
 
 When we press Space, the snake move and the food appear with a certain timing:
 
-```Cpp
+```javascript
 void MoveSnake::keyPressEvent(QKeyEvent *event)
 {
 if(event->key() == Qt::Key_Space){
@@ -472,7 +472,7 @@ if(event->key() == Qt::Key_Space){
 When the snake "eats" a Food, it gets longer, we check the collidingItems in our class SnakePart:
  The game continues until the snake "dies".A snake dies by either eating a bombe, or by running into its own tail.
  
-```Cpp
+```javascript
 void SnakePart::checkColliding() {
     QList <QGraphicsItem *> coll = this->collidingItems();
 
@@ -509,7 +509,7 @@ void SnakePart::checkColliding() {
 The final score is based on the number of Food eaten by the snake,and we save the high Score for giving the challenge:
 (Score.h)
 
-```Cpp
+```javascript
 
 class Score:public QGraphicsTextItem
 {
@@ -535,7 +535,7 @@ private:
 };
 ```
 *(Score.cpp)
-```Cpp
+```javascript
 Score::Score(QGraphicsItem *parent):QGraphicsTextItem(parent)
 {
     score = 0;
@@ -577,7 +577,7 @@ void HighScore::setScore(int value)
 ```
 We add finally the music to our game by the QMediaPlaylist, we have 3 sounds: one for playing,second for eating and the third for losing :
 
-```Cpp
+```javascript
 
 m_player = new QMediaPlayer();
     m_playlist = new QMediaPlaylist(m_player);
@@ -589,7 +589,7 @@ m_player = new QMediaPlayer();
 
 We play or stop our sound compared to the situation:
 
-```Cpp
+```javascript
      m_player->stop();
 Or
     m_player->play();
@@ -609,7 +609,7 @@ Or
  
  we add the closeEvent for saving highScores in a txt file:
  
-```Cpp
+```javascript
 void Game::closeEvent(QCloseEvent *e){
     QFile file("/Users/hp/Desktop/sav.txt");
     if (file.open(QIODevice::ReadWrite| QIODevice::Text)){
