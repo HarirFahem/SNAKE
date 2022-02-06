@@ -687,6 +687,13 @@ void Game::closeEvent(QCloseEvent *e){
 }
 ```
 
+
+
+
+https://user-images.githubusercontent.com/93039370/152680913-597e4ac7-9eda-4ad9-a715-331749fa2c6a.mp4
+
+
+
 [(**Back to top**)](#back)
 
 ### **Conclusion**
