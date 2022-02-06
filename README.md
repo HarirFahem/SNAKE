@@ -56,13 +56,22 @@ The **QMediaPlaylist class** provides a list of media content to play. It is int
 
 <a name="overview"></a>
 This project is a very important experience for us EIDIA students to become familiar with these new materials that we can consider very important.
- 	During this period, the project that we are going to carry out is an game named **Snake Game**
-	To clarify things for you, and to bring you closer to the options offered by our project, we have written this report which contains all the details and explanations associated with our project.
+
+During this period, the project that we are going to carry out is an game named **Snake Game**. To clarify things for you, and to bring you closer to the options offered by our project, we have written this report which contains all the details and explanations associated with our project.
+
   To achieve Snake Game, we used Qt-Creator which is a cross-platform integrated development environment (IDE) built for the maximum developer experience. Qt Creator runs on Windows, Linux, and macOS desktop operating systems, and allows developers to create applications across desktop, mobile, and embedded platforms.
+  
   **Snake Game** is a video game that originated during the late 1970s in arcades becoming something of a classic. It became the standard pre-loaded game on Nokia phones in 1998.The player controls a long, thin creature, resembling a snake, which roams around on a bordered plane, picking up food (or some other item), trying to avoid hitting its own tail or the edges of the playing area. Each time the snake eats a piece of food, its tail grows longer, making the game increasingly difficult. The user controls the direction of the snake's head (**up, down, left, or right**), and the snake's body follows.
+  
   Here is a overview of how it is designed:
+  Here is the first interface that is shown:
+  
+  ![Image](/frontend.png)
+  
+  When we click on play , this interface is shown: 
   
   ![Image](/backgroundsnake.png)
+ 
   
    ### **Steps** 
   
@@ -70,7 +79,8 @@ This project is a very important experience for us EIDIA students to become fami
   In carrying out this project, we had several Steps, thanks to which we were able to frame our work, and do our research in a well-organized way.
   
 The steps that have been set to carry out this work are the following:
-We create our window , it will be a GraphicsScene with its own properties , and we generate the first class which we called MainWindow:
+
+First We create our window , it will be a GraphicsScene with its own properties , and we generate the first class which we called MainWindow:
 Firstly ,We create our first window (game.h) :
 ```javascript
 class Game:public QGraphicsView
