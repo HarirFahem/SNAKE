@@ -243,6 +243,8 @@ void SnakePart::addBehind() {
 ```
 ![Image](/Edges.png)
 
+Snake cross the edge of the board
+
 When we clicked *Start* First, a snake starts at the (200,200) of the Window moving Right, we press space if we want to play 
 
 ```javascript
@@ -476,6 +478,7 @@ void MoveSnake::makeBomb(){
 ```
 After clicking on the button play, we should press on space to start playing.
 When we press Space, the snake move and the food appear with a certain timing, but when we press space the game stop.
+
 Here is the class that is generated for appearing the fruits :
 
 ```javascript
@@ -552,7 +555,7 @@ Eating a Bomb
 
 ![Image](/eatSelf.png)
 
-Eating its Self 
+Pass Away by Eating its Self 
 
 [(**Back to top**)](#back)
 
