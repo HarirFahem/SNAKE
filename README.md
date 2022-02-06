@@ -165,6 +165,7 @@ void SnakeMove::keyPressEvent(QKeyEvent *event)
 ```
 
 Then we connect these directions with the mouvement of the Snake , also we let our snake cross the edge of the board :
+
 ```Cpp
 void SnakePart::move() {
     static int first;
@@ -195,9 +196,7 @@ void SnakePart::move() {
 
     }
     first++;
-
 }
-
 void SnakePart::addBehind() {
     int x;
     int y;
@@ -219,12 +218,11 @@ void SnakePart::addBehind() {
         x = this->getForward()->x() + 40;
     }
     setPos(x,y);
-
-
 }
 
 ```
 When we clicked *Start* First, a snake starts at the (200,200) of the Window moving Right, we press space if we want to play 
+
 ```Cpp
 
     snakeHead = new SnakePart(this);
@@ -252,6 +250,7 @@ When we clicked *Start* First, a snake starts at the (200,200) of the Window mov
 
 [(**Back to top**)](#back)
   We used a function called *setImage* to draw our snake by parts
+  
   ```Cpp
   
   void SnakePart::setImage() {
@@ -304,6 +303,7 @@ When we clicked *Start* First, a snake starts at the (200,200) of the Window mov
 
   ```
 For the mouvement of our snake in our pressKey 
+
 ```Cpp
 
 void MoveSnake::move() {
@@ -346,6 +346,7 @@ void MoveSnake::moveSnake()
 
 We move to the food, We creat a class called Food for generate our food and also the Bomb 
 (Food.h)
+
 ```Cpp
 class food:public QGraphicsPixmapItem
 {
@@ -438,6 +439,7 @@ void MoveSnake::makeBomb(){
 ```
 
 When we press Space, the snake move and the food appear with a certain timing:
+
 ```Cpp
 void MoveSnake::keyPressEvent(QKeyEvent *event)
 {
@@ -469,6 +471,7 @@ if(event->key() == Qt::Key_Space){
 ```
 When the snake "eats" a Food, it gets longer, we check the collidingItems in our class SnakePart:
  The game continues until the snake "dies".A snake dies by either eating a bombe, or by running into its own tail.
+ 
 ```Cpp
 void SnakePart::checkColliding() {
     QList <QGraphicsItem *> coll = this->collidingItems();
@@ -505,6 +508,7 @@ void SnakePart::checkColliding() {
 [(**Back to top**)](#back)
 The final score is based on the number of Food eaten by the snake,and we save the high Score for giving the challenge:
 (Score.h)
+
 ```Cpp
 
 class Score:public QGraphicsTextItem
@@ -572,6 +576,7 @@ void HighScore::setScore(int value)
 }
 ```
 We add finally the music to our game by the QMediaPlaylist, we have 3 sounds: one for playing,second for eating and the third for losing :
+
 ```Cpp
 
 m_player = new QMediaPlayer();
@@ -583,6 +588,7 @@ m_player = new QMediaPlayer();
 ```
 
 We play or stop our sound compared to the situation:
+
 ```Cpp
      m_player->stop();
 Or
@@ -602,6 +608,7 @@ Or
 -  The last one is to close the Game.
  
  we add the closeEvent for saving highScores in a txt file:
+ 
 ```Cpp
 void Game::closeEvent(QCloseEvent *e){
     QFile file("/Users/hp/Desktop/sav.txt");
