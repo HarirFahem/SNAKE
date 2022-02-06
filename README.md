@@ -64,9 +64,7 @@ During this period, the project that we are going to carry out is an game named 
   **Snake Game** is a video game that originated during the late 1970s in arcades becoming something of a classic. It became the standard pre-loaded game on Nokia phones in 1998.The player controls a long, thin creature, resembling a snake, which roams around on a bordered plane, picking up food (or some other item), trying to avoid hitting its own tail or the edges of the playing area. Each time the snake eats a piece of food, its tail grows longer, making the game increasingly difficult. The user controls the direction of the snake's head (**up, down, left, or right**), and the snake's body follows.
   
   Here is a overview of how it is designed:
-  Here is the first interface that is shown:
-  
-  ![Image](/frontend.png)
+
   
   When we click on play , this interface is shown: 
   
@@ -147,15 +145,27 @@ connect(About,SIGNAL(clicked()) , this , SLOT(AboutSlot()));
 
 }
 ```
+
+  Here is the first interface shown is:
+  
+  ![Image](/frontend.png)
+  
+  
 [(**Back to top**)](#back)
 
 - The first button *Start* move us to the game.
 
+  ![Image](/backgroundsnake.png)
 
   We created two classes called MoveSnake and SnakePart which are responsible for the Snake and its funcionality. 
-As we mentioned in the Overview, the Snake move in the four directions and we control them from the keyPress Event 
   
-  ```javascript
+As we mentioned in the Overview, the Snake move in the four directions and we control them from the keyPress Event:
+* Down or X
+* Up or Z
+* Right or D
+* Left or Q
+  
+```javascript
 void SnakeMove::keyPressEvent(QKeyEvent *event)
 {
 
@@ -174,7 +184,7 @@ void SnakeMove::keyPressEvent(QKeyEvent *event)
     }
 ```
 
-Then we connect these directions with the mouvement of the Snake , also we let our snake cross the edge of the board :
+Then we connect these directions with the movement of the Snake , also we let our snake cross the edge of the board :
 
 ```javascript
 void SnakePart::move() {
@@ -231,6 +241,8 @@ void SnakePart::addBehind() {
 }
 
 ```
+![Image](/edges.png)
+
 When we clicked *Start* First, a snake starts at the (200,200) of the Window moving Right, we press space if we want to play 
 
 ```javascript
@@ -259,7 +271,8 @@ When we clicked *Start* First, a snake starts at the (200,200) of the Window mov
 ```
 
 [(**Back to top**)](#back)
-  We used a function called *setImage* to draw our snake by parts
+
+ We used a function called *setImage* to draw our snake by parts
   
   ```javascript
   
@@ -312,7 +325,8 @@ When we clicked *Start* First, a snake starts at the (200,200) of the Window mov
 }
 
   ```
-For the mouvement of our snake in our pressKey 
+When we press on the keyboard, the movement of the snake is in relation with the key clicked:
+here is the function that we used: 
 
 ```javascript
 
@@ -354,8 +368,11 @@ void MoveSnake::moveSnake()
 
 ```
 
-We move to the food, We creat a class called Food for generate our food and also the Bomb 
-(Food.h)
+We move to the food, We create a class called Food for generate our food and also the Bombs
+
+The header part of the food class called food.h , here is the code that we generate:
+
+*food.h*
 
 ```javascript
 class food:public QGraphicsPixmapItem
@@ -373,8 +390,13 @@ public:
 
 
 ```
+
 When the snake "eats" a strawberry or kiwi, it score increase, But if it's an egg it decrease by 5.
+
+Here is the implementation of the food class:
+
 *(Food.cpp)*
+
 ```javascript
 
 food::food(QGraphicsItem *parent,QString name):QGraphicsPixmapItem(parent)
@@ -400,7 +422,9 @@ Bomb::Bomb(QGraphicsItem *parent):QGraphicsPixmapItem(parent){
 ```
 
 [(**Back to top**)](#back)
-Our food: "Strawberry , Kiwi, and Egg" appears at random locations, also our Bomb
+
+Our food: "Strawberry , Kiwi, and Egg" appears at random locations, also our Bombs
+Here is the function that is responsible for the random locations of the meal:
 
 ```javascript
 MoveSnake::MoveSnake(QGraphicsItem *parent):QGraphicsRectItem(parent)
@@ -447,8 +471,9 @@ void MoveSnake::makeBomb(){
     f1->setY(qrand() % (880/40) * 40) ;
 }
 ```
-
-When we press Space, the snake move and the food appear with a certain timing:
+After clicking on the button play, we should press on space to start playing.
+When we press Space, the snake move and the food appear with a certain timing, but when we press space the game stop.
+Here is the class that is generated for appearing the fruits :
 
 ```javascript
 void MoveSnake::keyPressEvent(QKeyEvent *event)
@@ -479,9 +504,11 @@ if(event->key() == Qt::Key_Space){
 }
 
 ```
-When the snake "eats" a Food, it gets longer, we check the collidingItems in our class SnakePart:
- The game continues until the snake "dies".A snake dies by either eating a bombe, or by running into its own tail.
- 
+
+When the snake "eats" a Food, it gets longer, we check the collidingItems in our class SnakePart, the game continues until the snake "dies".A snake dies by either eating a bomb, or by running into its own tail.
+
+Here is the function of checkcolliding: 
+
 ```javascript
 void SnakePart::checkColliding() {
     QList <QGraphicsItem *> coll = this->collidingItems();
@@ -515,9 +542,13 @@ void SnakePart::checkColliding() {
         }
 }
 ```
+
 [(**Back to top**)](#back)
+
 The final score is based on the number of Food eaten by the snake,and we save the high Score for giving the challenge:
-(Score.h)
+Here is th header file:
+
+*(Score.h)*
 
 ```javascript
 
@@ -544,7 +575,11 @@ private:
     int highscore;
 };
 ```
+
+And in the cpp file we implement our methods:
+
 *(Score.cpp)
+
 ```javascript
 Score::Score(QGraphicsItem *parent):QGraphicsTextItem(parent)
 {
@@ -585,7 +620,8 @@ void HighScore::setScore(int value)
     setPlainText("High Score: " + QString::number(highscore));
 }
 ```
-We add finally the music to our game by the QMediaPlaylist, we have 3 sounds: one for playing,second for eating and the third for losing :
+
+We add finally the music to our game by the QMediaPlaylist, we have 3 sounds: one for playing,second for eating and the third and the last one for losing :
 
 ```javascript
 
