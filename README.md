@@ -687,7 +687,7 @@ void Game::closeEvent(QCloseEvent *e){
 }
 ```
 
-
+The Video bellow show a score playing by us: 
 
 
 https://user-images.githubusercontent.com/93039370/152680913-597e4ac7-9eda-4ad9-a715-331749fa2c6a.mp4
@@ -707,6 +707,7 @@ In addition, it allowed us to apply our knowledge to a practical area.
 As well as during our work, we had a problem with our computer, it hangs completely and if we don't restart it by pushing the power button, it won't work. Despite all its difficulties, it helps us to know consistent values across the entire field studied, which we will probably be led to do in our future profession.
 
 •	To summarize, this project is a very important experience for us to be familiar with this material and to develop our skills
+
 Thank you Sir
 
  [(**Back to top**)](#back)
